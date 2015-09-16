@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>My neighborhood Map</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+<!-- begin template -->
+<div class="navbar navbar-fixed-top">
+    <!--
+     <div class="navbar-header">
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    -->
+    <!--<div class="navbar-collapse collapse">-->
+
+    <div class="navbar-header" style="width: 100%">
+      <form class="navbar-form">
+        <div class="form-group" style="width: 100%">
+
+            <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
+
+            </div>
+
+            <input type="search" class="form-control" placeholder="What are searching for?" name="q" data-bind="value: query, valueUpdate: 'keyup'">
+
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <!--</div>-->
+
+</div>
+
+
+<div class="container-fluid">
+  <div class="row">
+  	<div class="col-sm-4" id="left">
+    
+      <div class="row">
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="">Neighborhood Map Project</a></div>
+      </div>
+
+
+        <div class="content">
+            <ul class="list-group" data-bind="template: {name:'location', foreach:locations}">
+            </ul>
+        </div>
+          <!--data-bind="css:{highlightlocClicked: clickedlocation() > 0}" -->
+        <script type="text/html" id="location">
+            <li class="list-group-item" data-bind="css:{highlightlocClicked: $parent.clickedlocation() > 0}">
+                <strong data-bind="text: name"></strong>
+                <span class="badge" data-bind="click: $parent.loadlocationdetails">Push me</span>
+            </li>
+        </script>
+
+      </div>
+
+      <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">No pictures to display</div>
+        </div>
+
+          <div id="locimg">
+
+            </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="col-sm-8">
+        <!--map-canvas will be postioned here-->
+
+        <div id="map-canvas"></div>
+
+    </div>
+    
+  </div>
+</div>
+<!-- end template -->
+<!--http://stackoverflow.com/questions/20029709/set-width-and-height-to-responsive-google-map-->
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+</html>
