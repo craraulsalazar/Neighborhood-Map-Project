@@ -23,11 +23,16 @@ body{
 	background-color: #1199C3;
 }
 
+.highlightRed {
+	color: #ffffff;
+	background-color: #1199C3;
+}
+
 ul > li:hover {
 
 	cursor: pointer; cursor: hand;
 	color: #ffffff;
-	background-color: #1199C3;
+	background-color: #c9e2b3;
 }
 
 /* Portrait */

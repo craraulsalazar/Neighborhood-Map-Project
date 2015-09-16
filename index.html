@@ -66,8 +66,8 @@
         </div>
           <!--data-bind="css:{highlightlocClicked: clickedlocation() > 0}" -->
         <script type="text/html" id="location">
-            <li class="list-group-item" data-bind="css:{highlightlocClicked: $parent.clickedlocation() > 0}">
-                <strong data-bind="text: name"></strong>
+            <li class="list-group-item" data-bind="css:{'highlightRed': $parent.currentlocationselected() === name}">
+                <strong data-bind="text: $data.name"></strong>
                 <span class="badge" data-bind="click: $parent.loadlocationdetails">Push me</span>
             </li>
         </script>

@@ -148,7 +148,6 @@ $(document).ready(function(){/* google maps ------------------------------------
             ShowImages(photos,bestphoto);
 
             //http://jsfiddle.net/sgentile/pRC4c/
-            viewModel.clickedlocation(1);
 
         }
 
@@ -272,21 +271,32 @@ $(document).ready(function(){/* google maps ------------------------------------
 
 
   var viewModel = {
+
     query: ko.observable(''),
       clickedlocation: ko.observable(0),
+      currentlocationselected:ko.observable(''),
       locations: ko.observableArray(locationstovisit),
+      selectedLocation: function(mydata) {
+
+          //alert(mydata.name);
+          viewModel.currentlocationselected(mydata.name);
+
+      },
       loadlocationdetails: function (place) {
 
         console.log(place);
         //call api and display pictures
         //alert('you click here' + place);
-          //this.clickedlocation(1);
+
+          viewModel.currentlocationselected(place.name);
           LoadFourSquareDetails(place, 'true');
 
     }
 
   };
 
+
+//http://stackoverflow.com/questions/17344935/select-an-item-in-a-list-on-click-with-knockout
 
   viewModel.locations = ko.dependentObservable(function() {
     var search = this.query().toLowerCase();
