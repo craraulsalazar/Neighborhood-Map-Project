@@ -4,7 +4,7 @@ $(document).ready(function(){/* google maps ------------------------------------
 
     if (typeof google !== 'object') {
 
-        //display friendly error message, whenever google maps or internet is down
+        //display friendly error message, if google maps or internet is down
 
         $('#map-canvas').append("<div class='alert alert-danger'>Unable to load Google Maps - No Internet Available</div>");
 
@@ -24,35 +24,24 @@ $(document).ready(function(){/* google maps ------------------------------------
 
     function initialize() {
 
-        //set initial position to city of toronto
-  var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
-        //var latlng = new google.maps.LatLng(43.82034693693644,-79.18190002441406);
-
+    //set initial position to city of toronto
+	var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
+    
     var mapOptions = {
     center: latlng,
     scrollWheel: false,
     zoom: 14
   }
 
-/*
-  var marker = new google.maps.Marker({
-    position: latlng,
-    url: '/',
-    animation: google.maps.Animation.DROP
-  });
-*/
 
-  //getting id where we the map will be loaded and load global variable
+  //getting id where the map will be loaded and load global variable
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-         google.maps.event.addListenerOnce(map, 'idle', function(){
+        google.maps.event.addListenerOnce(map, 'idle', function(){
                 //map is fully loaded. set all markers in map
 
                 DisplayAllPlaces(locationstovisit);
          });
-
-
-
 
     };
 
@@ -60,28 +49,20 @@ $(document).ready(function(){/* google maps ------------------------------------
     function CreateMarkers(geodata, itemclickedfromlist){
 
         var marker;
-        //console.log('calling createmarkers');
-
-        //console.log(map);
-
-            var venue = geodata.response.venue;
-            var location = venue.location;
-            var lat = location.lat;
-            var lng = location.lng;
-
-        //console.log('venue name: ' + venue.name);
-        //console.log(venue);
+        
+		var venue = geodata.response.venue;
+		var location = venue.location;
+		var lat = location.lat;
+		var lng = location.lng;
 
         if( typeof itemclickedfromlist !== 'undefined') {
 
-            //
-            console.log('user click button');
-            for (var i = 0; i < markers.length; i++) {
+			//if user pushed button, then find venue name in array and remove from map
+			for (var i = 0; i < markers.length; i++) {
 
                 if (markers[i].title == venue.name){
-
-                    console.log('item remove from map: ' + markers[i].title);
-
+					
+					//venue found, remove from map and array
                     markers[i].setMap(null);
                     markers.splice(i, 1);
 
@@ -90,6 +71,7 @@ $(document).ready(function(){/* google maps ------------------------------------
             }
         }
 
+		//Create marker
         marker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
                     animation: google.maps.Animation.DROP,
@@ -111,12 +93,12 @@ $(document).ready(function(){/* google maps ------------------------------------
 
         marker.addListener('click', function() {
 
-            //kill animation in other
+            //clear animation
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setAnimation(null);
             }
 
-
+			//if any infowindow is open, just closed
             if (infowindow) {
                 infowindow.close();
             }
@@ -158,19 +140,16 @@ $(document).ready(function(){/* google maps ------------------------------------
         });
 
 
-        //create pictures
+        //display pictures of venue selected
         if( typeof itemclickedfromlist !== 'undefined') {
 
-            console.log('variable clickedfromlistonly is defined');
             ShowImages(photos,bestphoto);
 
-            //http://jsfiddle.net/sgentile/pRC4c/
             //trigger marker click event
             google.maps.event.trigger(marker, 'click');
         }
 
-        //check to see if marker has been already pin in map
-        //if so, just don't added to the markers array
+        //add marker to array
 
         markers.push(marker);
 
@@ -178,9 +157,6 @@ $(document).ready(function(){/* google maps ------------------------------------
         for(var i=0;i<markers.length;i++) {
             bounds.extend(markers[i].getPosition());
         }
-
-        //center the map to a specific spot (city)
-        //map.setCenter(center);
 
         //center the map to the geometric center of all markers
         map.setCenter(bounds.getCenter());
@@ -229,7 +205,7 @@ $(document).ready(function(){/* google maps ------------------------------------
 
     }
 
-    //This function will Load all details from foursquare API
+    //This function will load all details from foursquare API
     function LoadFourSquareDetails(place, itemclickedfromlist)
     {
 
@@ -250,7 +226,6 @@ $(document).ready(function(){/* google maps ------------------------------------
         $.ajax(options)
             .done(function( data ) {
 
-                //var venue = data.response.venue;
                 CreateMarkers(data,itemclickedfromlist);
             }
         ).fail(
@@ -267,9 +242,8 @@ $(document).ready(function(){/* google maps ------------------------------------
     }
 
 
-    //this function will look for all my favorites places to go and set the markers
+    //this function will loop for all my favorites places to go and set the markers
     var DisplayAllPlaces = function (places) {
-        // do something with newValue, like an Ajax request.
 
         viewModel.currentlocationselected('');
         var allplacestovisitlen = places.length;
@@ -286,8 +260,8 @@ $(document).ready(function(){/* google maps ------------------------------------
     }
 
 
-//my favorites places to visit in toronto
-  var locationstovisit = [
+    //my favorites places to visit in toronto
+    var locationstovisit = [
         {
           name:"CN Tower",
           url:"https://api.foursquare.com/v2/venues/4ad4c05ef964a52096f620e3?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
@@ -312,78 +286,63 @@ $(document).ready(function(){/* google maps ------------------------------------
           name:"Rogers Center",
           url:"https://api.foursquare.com/v2/venues/4ad4c061f964a520adf720e3?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
 
+        },
+        {
+          name:"Toronto Islands",
+          url:"https://api.foursquare.com/v2/venues/4ad4c05ef964a5209af620e3?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
+
+        },
+		{
+          name:"St. Lawrence Market",
+          url:"https://api.foursquare.com/v2/venues/4ad4c062f964a520fbf720e3?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
+
+        },
+		{
+          name:"TIFF Bell Lightbox",
+          url:"https://api.foursquare.com/v2/venues/4bcf714ab221c9b67f0ad2d0?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
+
+        },
+		{
+          name:"BMO Field",
+          url:"https://api.foursquare.com/v2/venues/4ad4c062f964a520f3f720e3?client_id=XQ2ZGEMRPJCRRHMUI0VMHH53VLL5FYHHNDP5GXQJ12VYGQDK&client_secret=SE0GMX2FIWHB5RHSOCZTEJT5EWKDKDOZ05FMYJ4UOVG5ZSZY&v=20150715"
+
         }
-      ]
-      ;
+      ];
 
 
-    //build viewmodel using MVVM Model with knowoutjs
-  var viewModel = {
-
-    query: ko.observable(''),
-      clickedlocation: ko.observable(0),
-      currentlocationselected:ko.observable(''),
-      locations: ko.observableArray(locationstovisit),
-      selectedLocation: function(mydata) {
-
-          //alert(mydata.name);
-          viewModel.currentlocationselected(mydata.name);
-
-      },
-      loadlocationdetails: function (place) {
-
-        console.log(place);
-        //call api and display pictures
-        //alert('you click here' + place);
+    //build viewModel using MVVM Model with knockoutjs
+    var viewModel = {
+		query: ko.observable(''),
+		currentlocationselected:ko.observable(''),
+		locations: ko.observableArray(locationstovisit),
+		loadlocationdetails: function (place) {
 
           viewModel.currentlocationselected(place.name);
           LoadFourSquareDetails(place, 'true');
 
-    }
+		}
 
-  };
+	};
 
-  viewModel.locations = ko.dependentObservable(function() {
-    var search = this.query().toLowerCase();
+    viewModel.locations = ko.dependentObservable(function() {
+        var search = this.query().toLowerCase();
+        return ko.utils.arrayFilter(locationstovisit, function(loc) {
+
+          if (markers.length> 0)
+          {
+              clearMarkers();
+             $('.bgimg').remove();
+          }
+
+		  return loc.name.toLowerCase().indexOf(search) >= 0;
+       });
+   }, viewModel);
+
+
+   viewModel.locations.subscribe(DisplayAllPlaces);
 
     
-    return ko.utils.arrayFilter(locationstovisit, function(loc) {
-
-        if (markers.length> 0)
-        {
-            //https://developers.google.com/maps/documentation/javascript/examples/marker-remove
-            clearMarkers();
-            $('.bgimg').remove();
-        }
-
-      return loc.name.toLowerCase().indexOf(search) >= 0;
-    });
-  }, viewModel);
-
-
-    viewModel.locations.subscribe(DisplayAllPlaces);
-
-    /*
-    viewModel.locations.subscribe(function (places) {
-        // do something with newValue, like an Ajax request.
-
-        console.log("num of places: " + places.length);
-        var allplacestovisitlen = places.length;
-
-        for(var i=0; i< allplacestovisitlen;i++ )
-        {
-            var place = places[i];
-
-            console.log('url: '+ place.url);
-
-            LoadFourSquareDetails(place);
-
-        }
-    });
-
-    */
-
-  ko.applyBindings(viewModel);
+   ko.applyBindings(viewModel);
 
 
   /* end google maps -----------------------------------------------------*/
