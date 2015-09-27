@@ -1,5 +1,5 @@
 
-$(document).ready(function(){/* google maps -----------------------------------------------------*/
+$(document).ready(function(){
 
 
     if (typeof google !== 'object') {
@@ -24,41 +24,40 @@ $(document).ready(function(){/* google maps ------------------------------------
 
     function initialize() {
 
-    //set initial position to city of toronto
-	var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
+       //set initial position to city of toronto
+       var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
     
-    var mapOptions = {
-    center: latlng,
-    scrollWheel: false,
-    zoom: 14
-  }
+       var mapOptions = {
+       center: latlng,
+       scrollWheel: false,
+       zoom: 14
+       };
 
 
-  //getting id where the map will be loaded and load global variable
-  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+       //getting id where the map will be loaded and load global variable
+       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-                //map is fully loaded. set all markers in map
+       google.maps.event.addListenerOnce(map, 'idle', function(){
+            //map is fully loaded. set all markers in map
 
-                DisplayAllPlaces(locationstovisit);
-         });
+            DisplayAllPlaces(locationstovisit);
+        });
 
-    };
+    }
 
     //This function will create and position the markers in the map
     function CreateMarkers(geodata, itemclickedfromlist){
 
         var marker;
-        
-		var venue = geodata.response.venue;
-		var location = venue.location;
-		var lat = location.lat;
-		var lng = location.lng;
+        var venue = geodata.response.venue;
+        var location = venue.location;
+        var lat = location.lat;
+        var lng = location.lng;
 
         if( typeof itemclickedfromlist !== 'undefined') {
 
-			//if user pushed button, then find venue name in array and remove from map
-			for (var i = 0; i < markers.length; i++) {
+            //if user pushed button, then find venue name in array and remove from map
+            for (var i = 0; i < markers.length; i++) {
 
                 if (markers[i].title == venue.name){
 					
@@ -71,7 +70,7 @@ $(document).ready(function(){/* google maps ------------------------------------
             }
         }
 
-		//Create marker
+	    //Create marker
         marker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
                     animation: google.maps.Animation.DROP,
@@ -154,8 +153,8 @@ $(document).ready(function(){/* google maps ------------------------------------
         markers.push(marker);
 
         var bounds = new google.maps.LatLngBounds();
-        for(var i=0;i<markers.length;i++) {
-            bounds.extend(markers[i].getPosition());
+        for(var i2=0;i2<markers.length;i2++) {
+            bounds.extend(markers[i2].getPosition());
         }
 
         //center the map to the geometric center of all markers
@@ -252,12 +251,10 @@ $(document).ready(function(){/* google maps ------------------------------------
         {
             var place = places[i];
 
-            console.log('url: '+ place.url);
-
             LoadFourSquareDetails(place);
 
         }
-    }
+    };
 
 
     //my favorites places to visit in toronto
@@ -312,15 +309,13 @@ $(document).ready(function(){/* google maps ------------------------------------
 
     //build viewModel using MVVM Model with knockoutjs
     var viewModel = {
-		query: ko.observable(''),
-		currentlocationselected:ko.observable(''),
-		locations: ko.observableArray(locationstovisit),
-		loadlocationdetails: function (place) {
-
-          viewModel.currentlocationselected(place.name);
-          LoadFourSquareDetails(place, 'true');
-
-		}
+        query: ko.observable(''),
+        currentlocationselected:ko.observable(''),
+        locations: ko.observableArray(locationstovisit),
+        loadlocationdetails: function (place) {
+           viewModel.currentlocationselected(place.name);
+           LoadFourSquareDetails(place, 'true');
+	}
 
 	};
 
@@ -333,8 +328,7 @@ $(document).ready(function(){/* google maps ------------------------------------
               clearMarkers();
              $('.bgimg').remove();
           }
-
-		  return loc.name.toLowerCase().indexOf(search) >= 0;
+          return loc.name.toLowerCase().indexOf(search) >= 0;
        });
    }, viewModel);
 
