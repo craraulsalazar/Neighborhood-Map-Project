@@ -15,17 +15,7 @@
 	<body>
 <!-- begin template -->
 <div class="navbar navbar-fixed-top">
-    <!--
-     <div class="navbar-header">
-      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-    </div>
-    -->
-    <!--<div class="navbar-collapse collapse">-->
-
+    
     <div class="navbar-header" style="width: 100%">
       <form class="navbar-form">
         <div class="form-group" style="width: 100%">
@@ -64,7 +54,7 @@
             <ul class="list-group" data-bind="template: {name:'location', foreach:locations}">
             </ul>
         </div>
-          <!--data-bind="css:{highlightlocClicked: clickedlocation() > 0}" -->
+         
         <script type="text/html" id="location">
             <li class="list-group-item" data-bind="css:{'highlightRed': $parent.currentlocationselected() === name}">
                 <strong data-bind="text: $data.name"></strong>
@@ -98,7 +88,7 @@
   </div>
 </div>
 <!-- end template -->
-<!--http://stackoverflow.com/questions/20029709/set-width-and-height-to-responsive-google-map-->
+
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
