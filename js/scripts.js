@@ -57,7 +57,7 @@ $(document).ready(function(){
         if( typeof itemclickedfromlist !== 'undefined') {
 
             //if user pushed button, then find venue name in array and remove from map
-		    for (var i = 0; i < markers.length; i++) {
+            for (var i = 0; i < markers.length; i++) {
 
                 if (markers[i].title == venue.name){
 					
@@ -250,8 +250,6 @@ $(document).ready(function(){
         for(var i=0; i< allplacestovisitlen;i++ )
         {
             var place = places[i];
-
-            console.log('url: '+ place.url);
 
             LoadFourSquareDetails(place);
 
