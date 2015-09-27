@@ -25,7 +25,7 @@ $(document).ready(function(){
     function initialize() {
 
        //set initial position to city of toronto
-	   var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
+       var latlng = new google.maps.LatLng(43.6425662,-79.3870568);
     
        var mapOptions = {
        center: latlng,
@@ -49,11 +49,10 @@ $(document).ready(function(){
     function CreateMarkers(geodata, itemclickedfromlist){
 
         var marker;
-        
-	    var venue = geodata.response.venue;
-	    var location = venue.location;
-	    var lat = location.lat;
-	    var lng = location.lng;
+        var venue = geodata.response.venue;
+        var location = venue.location;
+        var lat = location.lat;
+        var lng = location.lng;
 
         if( typeof itemclickedfromlist !== 'undefined') {
 
@@ -312,13 +311,13 @@ $(document).ready(function(){
 
     //build viewModel using MVVM Model with knockoutjs
     var viewModel = {
-	    query: ko.observable(''),
-	    currentlocationselected:ko.observable(''),
-	    locations: ko.observableArray(locationstovisit),
-		loadlocationdetails: function (place) {
-          viewModel.currentlocationselected(place.name);
-          LoadFourSquareDetails(place, 'true');
-		}
+        query: ko.observable(''),
+        currentlocationselected:ko.observable(''),
+        locations: ko.observableArray(locationstovisit),
+        loadlocationdetails: function (place) {
+           viewModel.currentlocationselected(place.name);
+           LoadFourSquareDetails(place, 'true');
+	}
 
 	};
 
