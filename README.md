@@ -4,9 +4,11 @@ Steps to run index.html
 
 go to http://craraulsalazar.github.io/Neighborhood-Map-Project/index.html
 
-App Functionality
+App Functionality 
 
-The application consists of a search bar at the top, a listview with my favorite places to visit in Toronto, a map on the right with markers in the locations whenever you push the the location on the map or in the listview. it will display a set of images from that location and more information about it from foursquare. 
+This application will be using foursquare API.
+
+The application consists of a search bar at the top, a listview with my favorite places to visit in Toronto, a map on the right with markers in the locations, whenever you push/clicked, it will display a set of images from that location and more information about it from foursquare. 
 
 Search Bar: Filters both locations in the listview and in the map
 
